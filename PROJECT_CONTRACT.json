@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "metrics": {
+    "production_loc": 3947,
+    "production_files": 27,
+    "production_packages": 11,
+    "test_files": 9,
+    "production_functions": 87,
+    "decision_points": 100
+  },
+  "persistence": {
+    "module": "go.etcd.io/bbolt",
+    "entities": ["Supplier", "Permission", "InboundOrder", "QualityResult", "SettlementBill"],
+    "reopen_test": "TestPersistenceSurvivesReopen"
+  },
+  "workflows": [
+    {"steps": ["authenticate supplier", "check permission", "load inbound records", "write audit log"], "test": "TestWorkflowOne"},
+    {"steps": ["authenticate supplier", "load inbound records", "load quality results", "export report"], "test": "TestWorkflowTwo"},
+    {"steps": ["authenticate supplier", "check settlement scope", "load settlement bills", "write audit log"], "test": "TestWorkflowThree"}
+  ]
+}
